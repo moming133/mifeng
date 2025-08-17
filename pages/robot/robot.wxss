@@ -1,4 +1,4 @@
-.container {
+  .container {
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -10,29 +10,6 @@
   display: flex;
   align-items: center;
   gap: 10px;
-}
-
-.device-list {
-  margin-top: 20px;
-  border: 1px solid #eee;
-  border-radius: 5px;
-  padding: 10px;
-  max-height: 300px;
-  overflow-y: auto;
-}
-
-.device-item {
-  padding: 10px;
-  border-bottom: 1px solid #eee;
-}
-
-.device-item:last-child {
-  border-bottom: none;
-}
-
-.device-item text {
-  display: block;
-  margin-bottom: 5px;
 }
 
 .control-panel {
