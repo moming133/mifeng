@@ -1,0 +1,160 @@
+<!-- pages/settings/settings.wxml -->
+<view class="container">
+    <!-- 页面标题 -->
+    <view class="page-header">
+        <text class="page-title">设置</text>
+    </view>
+
+    <!-- 加载状态 -->
+    <view class="loading-container" wx:if="{{loading}}">
+        <view class="loading-spinner"></view>
+        <text class="loading-text">加载配置中...</text>
+    </view>
+
+    <!-- 错误状态 -->
+    <view class="error-container" wx:if="{{error && !loading}}">
+        <text class="error-icon">⚠️</text>
+        <text class="error-text">{{error}}</text>
+        <button class="retry-button" bindtap="loadConfig">重试</button>
+    </view>
+
+    <!-- 配置内容 -->
+    <view class="content-container" wx:if="{{!loading && !error}}">
+        <!-- 操作按钮 -->
+        <view class="action-buttons">
+            <button class="action-button" bindtap="refreshConfig">
+                <text class="button-icon">🔄</text>
+                <text class="button-text">刷新配置</text>
+            </button>
+            <button class="action-button" bindtap="saveConfig">
+                <text class="button-icon">💾</text>
+                <text class="button-text">保存配置</text>
+            </button>
+            <button class="action-button" bindtap="resetConfig">
+                <text class="button-icon">🔄</text>
+                <text class="button-text">重置配置</text>
+            </button>
+        </view>
+
+        <!-- 配置选项卡 -->
+        <view class="tabs">
+            <view class="tab {{currentTab === 'config' ? 'active' : ''}}" bindtap="switchTab" data-tab="config">
+                <text class="tab-text">config</text>
+            </view>
+            <view class="tab {{currentTab === 'efuse' ? 'active' : ''}}" bindtap="switchTab" data-tab="efuse">
+                <text class="tab-text">efuse</text>
+            </view>
+        </view>
+
+        <!-- 配置内容 -->
+        <view class="config-content">
+            <!-- config.json 内容 -->
+            <view class="config-section" wx:if="{{currentTab === 'config'}}">
+                <view class="config-item">
+                    <text class="config-label">服务器地址</text>
+                    <input class="config-input" value="{{config.server.apiUrl}}" 
+                           data-field="server.apiUrl" bindinput="onConfigChange" />
+                </view>
+                <view class="config-item">
+                    <text class="config-label">WebSocket地址</text>
+                    <input class="config-input" value="{{config.server.websocketUrl}}" 
+                           data-field="server.websocketUrl" bindinput="onConfigChange" />
+                </view>
+                <view class="config-item">
+                    <text class="config-label">应用名称</text>
+                    <input class="config-input" value="{{config.app.name}}" 
+                           data-field="app.name" bindinput="onConfigChange" />
+                </view>
+                <view class="config-item">
+                    <text class="config-label">应用版本</text>
+                    <input class="config-input" value="{{config.app.version}}" 
+                           data-field="app.version" bindinput="onConfigChange" />
+                </view>
+                <view class="config-item">
+                    <text class="config-label">调试模式</text>
+                    <switch checked="{{config.app.debug}}" 
+                            data-field="app.debug" bindchange="onConfigChange" />
+                </view>
+                <view class="config-item">
+                    <text class="config-label">语音识别</text>
+                    <switch checked="{{config.features.speechToText}}" 
+                            data-field="features.speechToText" bindchange="onConfigChange" />
+                </view>
+                <view class="config-item">
+                    <text class="config-label">语音合成</text>
+                    <switch checked="{{config.features.textToSpeech}}" 
+                            data-field="features.textToSpeech" bindchange="onConfigChange" />
+                </view>
+                <view class="config-item">
+                    <text class="config-label">消息历史</text>
+                    <switch checked="{{config.features.messageHistory}}" 
+                            data-field="features.messageHistory" bindchange="onConfigChange" />
+                </view>
+                <view class="config-item">
+                    <text class="config-label">分享功能</text>
+                    <switch checked="{{config.features.sharing}}" 
+                            data-field="features.sharing" bindchange="onConfigChange" />
+                </view>
+            </view>
+
+            <!-- efuse.json 内容 -->
+            <view class="config-section" wx:if="{{currentTab === 'efuse'}}">
+                <view class="config-item">
+                    <text class="config-label">设备ID</text>
+                    <input class="config-input" value="{{efuse.device.id}}" 
+                           data-field="device.id" bindinput="onEfuseChange" />
+                </view>
+                <view class="config-item">
+                    <text class="config-label">设备名称</text>
+                    <input class="config-input" value="{{efuse.device.name}}" 
+                           data-field="device.name" bindinput="onEfuseChange" />
+                </view>
+                <view class="config-item">
+                    <text class="config-label">设备类型</text>
+                    <input class="config-input" value="{{efuse.device.type}}" 
+                           data-field="device.type" bindinput="onEfuseChange" />
+                </view>
+                <view class="config-item">
+                    <text class="config-label">加密模式</text>
+                    <switch checked="{{efuse.security.encrypted}}" 
+                            data-field="security.encrypted" bindchange="onEfuseChange" />
+                </view>
+                <view class="config-item">
+                    <text class="config-label">调试模式</text>
+                    <switch checked="{{efuse.security.debugMode}}" 
+                            data-field="security.debugMode" bindchange="onEfuseChange" />
+                </view>
+                <view class="config-item">
+                    <text class="config-label">最大消息数</text>
+                    <input class="config-input" type="number" value="{{efuse.limits.maxMessages}}" 
+                           data-field="limits.maxMessages" bindinput="onEfuseChange" />
+                </view>
+                <view class="config-item">
+                    <text class="config-label">最大消息长度</text>
+                    <input class="config-input" type="number" value="{{efuse.limits.maxMessageLength}}" 
+                           data-field="limits.maxMessageLength" bindinput="onEfuseChange" />
+                </view>
+            </view>
+        </view>
+
+        <!-- 配置操作 -->
+        <view class="config-actions">
+            <button class="action-button" bindtap="copyConfig" wx:if="{{currentTab === 'config'}}">
+                <text class="button-icon">📋</text>
+                <text class="button-text">复制config</text>
+            </button>
+            <button class="action-button" bindtap="copyEfuse" wx:if="{{currentTab === 'efuse'}}">
+                <text class="button-icon">📋</text>
+                <text class="button-text">复制efuse</text>
+            </button>
+            <button class="action-button" bindtap="exportConfig">
+                <text class="button-icon">📤</text>
+                <text class="button-text">导出配置</text>
+            </button>
+            <button class="action-button" bindtap="importConfig">
+                <text class="button-icon">📥</text>
+                <text class="button-text">导入配置</text>
+            </button>
+        </view>
+    </view>
+</view>

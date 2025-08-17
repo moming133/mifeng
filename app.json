@@ -1,0 +1,50 @@
+{
+    "pages": [
+        "pages/chat/chat",
+        "pages/robot/robot",
+        "pages/settings/settings"
+    ],
+    "requiredPrivateInfos": [
+        "getLocation",
+        "onLocationChange",
+        "startLocationUpdate"
+    ],
+    "permission": {
+        "scope.userLocation": {
+            "desc": "你的位置信息将用于蓝牙设备扫描"
+        }
+    },
+    "window": {
+        "backgroundTextStyle": "dark",
+        "navigationBarBackgroundColor": "#ffffff",
+        "navigationBarTitleText": "智能助手",
+        "navigationBarTextStyle": "black"
+    },
+    "tabBar": {
+        "color": "#7A7E83",
+        "selectedColor": "#3cc51f",
+        "borderStyle": "black",
+        "backgroundColor": "#ffffff",
+        "list": [
+            {
+                "pagePath": "pages/chat/chat",
+                "iconPath": "images/chat.png",
+                "selectedIconPath": "images/chat-active.png",
+                "text": "语音控制"
+            },
+            {
+                "pagePath": "pages/robot/robot",
+                "iconPath": "images/robot-chat.png",
+                "selectedIconPath": "images/robot-chat-active.png",
+                "text": "手动控制"
+            },
+            {
+                "pagePath": "pages/settings/settings",
+                "iconPath": "images/settings.png",
+                "selectedIconPath": "images/settings-active.png",
+                "text": "设置"
+            }
+        ]
+    },
+    "sitemapLocation": "sitemap.json"
+}

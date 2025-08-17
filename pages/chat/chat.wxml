@@ -1,0 +1,91 @@
+<!-- pages/chat/chat.wxml -->
+<view class="container">
+    <!-- 聊天消息区域 -->
+    <scroll-view class="chat-area" scroll-y scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}" bindscrolltoupper="loadMore" bindscrolltolower="loadMore">
+        <!-- 系统消息 -->
+        <view class="system-message" wx:if="{{chatMessages.length === 0}}">
+            <text class="system-text">欢迎使用小智AI，开始对话吧！</text>
+        </view>
+        <!-- 聊天消息列表 -->
+        <view class="message-list">
+            <view wx:for="{{chatMessages}}" wx:key="timestamp" id="msg-{{index}}" class="message-item {{item.role === 'user' ? 'user-message' : 'ai-message'}}">
+                <!-- 用户消息 -->
+                <view wx:if="{{item.role === 'user'}}" class="message-content user-content">
+                    <text class="message-text">{{item.message}}</text>
+                    <text class="message-time">{{formatTime(item.timestamp)}}</text>
+                </view>
+                <!-- AI消息 -->
+                <view wx:else class="message-content ai-content">
+                    <view class="ai-header">
+                        <text class="ai-avatar">🤖</text>
+                        <text class="ai-name">小智AI</text>
+                        <view class="typing-indicator" wx:if="{{isTyping && index === chatMessages.length - 1}}">
+                            <view class="typing-dot"></view>
+                            <view class="typing-dot"></view>
+                            <view class="typing-dot"></view>
+                        </view>
+                    </view>
+                    <text class="message-text">{{item.message}}</text>
+                    <text class="message-time">{{formatTime(item.timestamp)}}</text>
+                </view>
+            </view>
+        </view>
+        <!-- 加载指示器 -->
+        <view class="loading-indicator" wx:if="{{loading}}">
+            <view class="loading-spinner"></view>
+            <text class="loading-text">正在思考...</text>
+        </view>
+        <!-- 打字指示器 -->
+        <view class="typing-indicator-container" wx:if="{{isTyping && !loading}}">
+            <view class="typing-indicator">
+                <view class="typing-dot"></view>
+                <view class="typing-dot"></view>
+                <view class="typing-dot"></view>
+            </view>
+            <text class="typing-text">小智正在输入...</text>
+        </view>
+    </scroll-view>
+    <!-- 底部输入区域 -->
+    <view class="input-area">
+        <!-- 状态指示器 -->
+        <view class="status-bar">
+            <view class="status-item connection-status">
+                <view class="status-indicator {{isConnected ? 'connected' : 'disconnected'}}"></view>
+                <text class="status-text">{{isConnected ? '已连接' : '未连接'}}</text>
+            </view>
+            <view class="status-item device-status">
+                <view class="status-indicator status-{{deviceState}}"></view>
+                <text class="status-text">{{getDeviceStatusText(deviceState)}}</text>
+            </view>
+            <view class="status-item emotion-status">
+                <text class="emotion-emoji">{{getEmotionEmoji(emotion)}}</text>
+            </view>
+        </view>
+        <!-- 输入框区域 -->
+        <view class="input-container">
+            <!-- 文本输入框 -->
+            <view class="input-wrapper">
+                <input class="text-input" placeholder="输入消息..." value="{{inputValue}}" bindinput="onInputChange" bindconfirm="sendText" disabled="{{!hasNetwork || !isConnected}}" />
+            </view>
+            <!-- 发送按钮 -->
+            <view class="send-button {{inputValue.trim() && isConnected ? 'active' : ''}}" bindtap="sendText">
+                <text class="send-icon">发送</text>
+            </view>
+        </view>
+        <!-- 操作按钮 -->
+        <view class="action-buttons">
+            <view class="action-button" bindtap="clearChat">
+                <text class="action-icon">🗑️</text>
+                <text class="action-text">清空</text>
+            </view>
+            <view class="action-button" bindtap="shareChat">
+                <text class="action-icon">📤</text>
+                <text class="action-text">分享</text>
+            </view>
+            <view class="action-button" bindtap="abortSpeaking" wx:if="{{deviceState === 'speaking'}}">
+                <text class="action-icon">⏹️</text>
+                <text class="action-text">停止</text>
+            </view>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,67 @@
+{
+  "SYSTEM_OPTIONS": {
+    "CLIENT_ID": "58f42538-f2c2-47e8-8854-2dd78af47bd3",
+    "DEVICE_ID": "e0:d5:5e:ca:e0:e9",
+    "NETWORK": {
+      "OTA_VERSION_URL": "https://api.tenclass.net/xiaozhi/ota/",
+      "WEBSOCKET_URL": "wss://api.tenclass.net/xiaozhi/v1/",
+      "WEBSOCKET_ACCESS_TOKEN": "test-token",
+      "MQTT_INFO": {
+        "endpoint": "mqtt.xiaozhi.me",
+        "client_id": "GID_test@@@e0_d5_5e_ca_e0_e9@@@58f42538-f2c2-47e8-8854-2dd78af47bd3",
+        "username": "eyJpcCI6IjEyMC44NS4xNzAuMTQ5In0=",
+        "password": "kO56EYYRACgeN+j9pwV8UF79qGVTrIu455hvMPTWnos=",
+        "publish_topic": "device-server",
+        "subscribe_topic": "null"
+      },
+      "ACTIVATION_VERSION": "v2",
+      "AUTHORIZATION_URL": "https://xiaozhi.me/"
+    }
+  },
+  "WAKE_WORD_OPTIONS": {
+    "USE_WAKE_WORD": false,
+    "MODEL_PATH": "models/vosk-model-small-cn-0.22",
+    "WAKE_WORDS": [
+      "你好小智",
+      "你好小蜘蛛",
+      "小智小智"
+    ]
+  },
+  "CAMERA": {
+    "camera_index": 0,
+    "frame_width": 640,
+    "frame_height": 480,
+    "fps": 30,
+    "Local_VL_url": "https://open.bigmodel.cn/api/paas/v4/",
+    "VLapi_key": "c44c1d23cba44493839db6e414f412b8.iwi2RkWXfAQV5aCY",
+    "models": "glm-4v-plus"
+  },
+  "SHORTCUTS": {
+    "ENABLED": true,
+    "MANUAL_PRESS": {
+      "modifier": "ctrl",
+      "key": "j",
+      "description": "按住说话"
+    },
+    "AUTO_TOGGLE": {
+      "modifier": "ctrl",
+      "key": "k",
+      "description": "自动对话"
+    },
+    "ABORT": {
+      "modifier": "ctrl",
+      "key": "q",
+      "description": "中断对话"
+    },
+    "MODE_TOGGLE": {
+      "modifier": "ctrl",
+      "key": "m",
+      "description": "切换模式"
+    },
+    "WINDOW_TOGGLE": {
+      "modifier": "ctrl",
+      "key": "w",
+      "description": "显示/隐藏窗口"
+    }
+  }
+}

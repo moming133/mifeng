@@ -1,0 +1,12 @@
+{
+  "mac_address": "e0:d5:5e:ca:e0:e9",
+  "serial_number": "SN-12CD3E49-e0d55ecae0e9",
+  "hmac_key": "d6a0a0718f6d509d5705c741b5b3d1e9637aac2240898dc4adfabdea0cb6042f",
+  "activation_status": true,
+  "device_fingerprint": {
+    "system": "Windows",
+    "hostname": "2023-B2-000",
+    "mac_address": "e0:d5:5e:ca:e0:e9",
+    "machine_id": "e1f3d531-fd3f-40dd-a458-5cefeae2c946"
+  }
+}

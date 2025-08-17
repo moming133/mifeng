@@ -1,0 +1,115 @@
+.container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.status {
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.device-list {
+  margin-top: 20px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  padding: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.device-item {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.device-item:last-child {
+  border-bottom: none;
+}
+
+.device-item text {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.control-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.row {
+  display: flex;
+  gap: 15px;
+}
+
+.control-btn {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  font-size: 16px;
+  transition: all 0.1s ease;
+}
+
+.control-btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.forward {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.backward {
+  background-color: #F44336;
+  color: white;
+}
+
+.left {
+  background-color: #2196F3;
+  color: white;
+}
+
+.right {
+  background-color: #FF9800;
+  color: white;
+}
+
+.stop {
+  background-color: #9E9E9E;
+  color: white;
+}
+
+.special-actions {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.action-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.action-btn {
+  min-width: 80px;
+  height: 40px;
+  border-radius: 20px;
+  font-size: 14px;
+  background-color: #673AB7;
+  color: white;
+  transition: all 0.1s ease;
+}
+
+.action-btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background-color: #5E35B1;
+}

@@ -1,0 +1,102 @@
+<view class="container">
+  <view class="status">
+    <text>蓝牙状态: {{connected ? '已连接' : '未连接'}}</text>
+    <button bindtap="connectDevice" type="primary" size="mini">{{scanning ? '扫描中...' : '连接设备'}}</button>
+
+<view class="device-list" wx:if="{{devices.length > 0}}">
+  <view class="device-item" wx:for="{{devices}}" wx:key="deviceId" bindtap="selectDevice" data-device-id="{{item.deviceId}}">
+    <text>{{item.name || '未知设备'}}</text>
+    <text>{{item.deviceId}}</text>
+  </view>
+</view>
+  </view>
+
+  <view class="control-panel">
+    <button class="control-btn forward" 
+      bindtap="handleTap" 
+      bindlongpress="handleLongPress" 
+      bindtouchend="handleTouchEnd" 
+      data-type="up">前进</button>
+    <view class="row">
+      <button class="control-btn left" 
+        bindtap="handleTap" 
+        bindlongpress="handleLongPress" 
+        bindtouchend="handleTouchEnd" 
+        data-type="left">左转</button>
+      <button class="control-btn stop" 
+        bindtap="handleTap" 
+        bindlongpress="handleLongPress" 
+        bindtouchend="handleTouchEnd" 
+        data-type="release">停止</button>
+      <button class="control-btn right" 
+        bindtap="handleTap" 
+        bindlongpress="handleLongPress" 
+        bindtouchend="handleTouchEnd" 
+        data-type="right">右转</button>
+    </view>
+    <button class="control-btn backward" 
+      bindtap="handleTap" 
+      bindlongpress="handleLongPress" 
+      bindtouchend="handleTouchEnd" 
+      data-type="down">后退</button>
+    
+    <view class="special-actions">
+      <view class="action-row">
+        <button class="action-btn" 
+          bindtap="handleTap" 
+          bindlongpress="handleLongPress" 
+          bindtouchend="handleTouchEnd" 
+          data-type="omniWalk">全向行走</button>
+        <button class="action-btn" 
+          bindtap="handleTap" 
+          bindlongpress="handleLongPress" 
+          bindtouchend="handleTouchEnd" 
+          data-type="dance">跳舞</button>
+        <button class="action-btn" 
+          bindtap="handleTap" 
+          bindlongpress="handleLongPress" 
+          bindtouchend="handleTouchEnd" 
+          data-type="frontBack">前后摆动</button>
+      </view>
+      <view class="action-row">
+        <button class="action-btn" 
+          bindtap="handleTap" 
+          bindlongpress="handleLongPress" 
+          bindtouchend="handleTouchEnd" 
+          data-type="moonwalkL">左太空步</button>
+        <button class="action-btn" 
+          bindtap="handleTap" 
+          bindlongpress="handleLongPress" 
+          bindtouchend="handleTouchEnd" 
+          data-type="upDown">上下运动</button>
+        <button class="action-btn" 
+          bindtap="handleTap" 
+          bindlongpress="handleLongPress" 
+          bindtouchend="handleTouchEnd" 
+          data-type="pushUp">俯卧撑</button>
+      </view>
+      <view class="action-row">
+        <button class="action-btn" 
+          bindtap="handleTap" 
+          bindlongpress="handleLongPress" 
+          bindtouchend="handleTouchEnd" 
+          data-type="hello">打招呼</button>
+        <button class="action-btn" 
+          bindtap="handleTap" 
+          bindlongpress="handleLongPress" 
+          bindtouchend="handleTouchEnd" 
+          data-type="waveHand">挥手</button>
+        <button class="action-btn" 
+          bindtap="handleTap" 
+          bindlongpress="handleLongPress" 
+          bindtouchend="handleTouchEnd" 
+          data-type="scared">害怕</button>
+        <button class="action-btn" 
+          bindtap="handleTap" 
+          bindlongpress="handleLongPress" 
+          bindtouchend="handleTouchEnd" 
+          data-type="hide">躲藏</button>
+      </view>
+    </view>
+  </view>
+</view>

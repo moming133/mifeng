@@ -1,0 +1,158 @@
+<!-- pages/devices/devices.wxml -->
+<view class="container">
+    <!-- 搜索栏 -->
+    <view class="search-bar">
+        <view class="search-input-wrapper">
+            <text class="search-icon">🔍</text>
+            <input class="search-input" placeholder="搜索设备..." value="{{searchQuery}}" bindinput="onSearch" />
+        </view>
+    </view>
+    <!-- 设备分类 -->
+    <view class="category-tabs">
+        <view wx:for="{{deviceCategories}}" wx:key="id" class="category-tab {{currentCategory === item.id ? 'active' : ''}}" bindtap="switchCategory" data-category="{{item.id}}">
+            {{item.name}}
+        </view>
+    </view>
+    <!-- 设备列表 -->
+    <view class="devices-container">
+        <!-- 蓝牙设备发现状态 -->
+        <view wx:if="{{discovering}}" class="discovery-status">
+            <text class="discovery-icon">🔍</text>
+            <text class="discovery-text">正在搜索蓝牙设备...</text>
+            <text class="discovery-count">已发现 {{bleDevices.length}} 个设备</text>
+        </view>
+
+        <!-- 蓝牙设备列表 -->
+        <view wx:if="{{bleDevices.length > 0}}" class="ble-devices-list">
+            <view wx:for="{{bleDevices}}" wx:key="deviceId" class="ble-device-item">
+                <view class="ble-device-info">
+                    <text class="ble-device-name">{{item.name}}</text>
+                    <text class="ble-device-id">{{item.deviceId}}</text>
+                </view>
+                <button
+                    class="connect-btn {{connectedDeviceId === item.deviceId ? 'connected' : ''}}"
+                    bindtap="connectDevice"
+                    data-device-id="{{item.deviceId}}"
+                >
+                    {{connectedDeviceId === item.deviceId ? '已连接' : '连接'}}
+                </button>
+            </view>
+        </view>
+
+        <!-- 智能设备列表 -->
+        <view wx:if="{{filteredDevices.length === 0 && bleDevices.length === 0}}" class="empty-state">
+            <text class="empty-icon">🏠</text>
+            <text class="empty-text">暂无设备</text>
+            <button class="add-device-btn" bindtap="addDevice">添加设备</button>
+        </view>
+        <view wx:elif="{{filteredDevices.length > 0}}" class="devices-list">
+            <!-- 按房间分组显示 -->
+            <block wx:for="{{roomDevices}}" wx:key="*this">
+                <view class="room-section">
+                    <view class="room-header">
+                        <text class="room-name">{{item.key}}</text>
+                        <text class="room-count">{{item.value.length}}个设备</text>
+                    </view>
+                    <view class="room-devices">
+                        <view wx:for="{{item.value}}" wx:key="id" class="device-card">
+                            <!-- 设备图标和状态 -->
+                            <view class="device-header">
+                                <view class="device-icon-wrapper">
+                                    <text class="device-icon">{{item.icon}}</text>
+                                    <view class="device-status-indicator" style="background-color: {{getDeviceStatusColor(item.status)}}"></view>
+                                </view>
+                                <view class="device-actions">
+                                    <view wx:if="{{item.status !== 'online' && !connectedDeviceId}}" class="action-btn connect-btn" bindtap="connectDevice" data-device-id="{{item.id}}">
+                                        <text class="btn-icon">🔗</text>
+                                    </view>
+                                    <view wx:if="{{item.status === 'online' || connectedDeviceId}}" class="action-btn disconnect-btn" bindtap="disconnectDevice" data-device-id="{{item.id}}">
+                                        <text class="btn-icon">🔌</text>
+                                    </view>
+                                    <view class="action-btn delete-btn" bindtap="deleteDevice" data-device-id="{{item.id}}">
+                                        <text class="btn-icon">🗑️</text>
+                                    </view>
+                                </view>
+                            </view>
+                            <!-- 设备信息 -->
+                            <view class="device-info">
+                                <text class="device-name">{{item.name}}</text>
+                                <view class="device-status">
+                                    <text class="status-text" style="color: {{getDeviceStatusColor(item.status)}}">
+                                        {{getDeviceStatusText(item.status)}}
+                                    </text>
+                                    <text class="update-time">
+                                        {{formatTime(item.lastUpdated)}}
+                                    </text>
+                                </view>
+                            </view>
+                            <!-- 设备控制 -->
+                            <view class="device-controls" wx:if="{{item.status === 'online'}}">
+                                <!-- 灯光控制 -->
+                                <view wx:if="{{item.type === 'light'}}" class="control-group">
+                                    <view class="control-label">亮度</view>
+                                    <slider class="brightness-slider" min="0" max="100" value="{{item.brightness}}" bindchange="adjustBrightness" data-device-id="{{item.id}}" activeColor="#ffeb3b" backgroundColor="#f0f0f0" />
+                                    <text class="brightness-value">{{item.brightness}}%</text>
+                                </view>
+                                <!-- 音响控制 -->
+                                <view wx:if="{{item.type === 'speaker'}}" class="control-group">
+                                    <view class="control-label">音量</view>
+                                    <slider class="volume-slider" min="0" max="100" value="{{item.volume}}" bindchange="adjustVolume" data-device-id="{{item.id}}" activeColor="#07c160" backgroundColor="#f0f0f0" />
+                                    <text class="volume-value">{{item.volume}}%</text>
+                                </view>
+                                <!-- 空调控制 -->
+                                <view wx:if="{{item.type === 'air_conditioner'}}" class="control-group">
+                                    <view class="control-label">温度</view>
+                                    <view class="temperature-controls">
+                                        <view class="temp-btn {{item.temperature > 16 ? '' : 'disabled'}}" bindtap="setTemperature" data-device-id="{{item.id}}" data-value="{{item.temperature - 1}}">
+                                            <text class="temp-icon">❄️</text>
+                                        </view>
+                                        <text class="temperature-value">
+                                            {{item.temperature}}°C
+                                        </text>
+                                        <view class="temp-btn {{item.temperature < 30 ? '' : 'disabled'}}" bindtap="setTemperature" data-device-id="{{item.id}}" data-value="{{item.temperature + 1}}">
+                                            <text class="temp-icon">🔥</text>
+                                        </view>
+                                    </view>
+                                </view>
+                                <!-- 传感器显示 -->
+                                <view wx:if="{{item.type === 'sensor'}}" class="sensor-info">
+                                    <view class="sensor-item">
+                                        <text class="sensor-label">温度</text>
+                                        <text class="sensor-value">{{item.temperature}}°C</text>
+                                    </view>
+                                    <view class="sensor-item">
+                                        <text class="sensor-label">湿度</text>
+                                        <text class="sensor-value">{{item.humidity}}%</text>
+                                    </view>
+                                </view>
+                                <!-- 摄像头控制 -->
+                                <view wx:if="{{item.type === 'camera'}}" class="camera-controls">
+                                    <view class="camera-status">
+                                        <text class="status-label">录制状态</text>
+                                        <text class="status-value {{item.recording ? 'recording' : ''}}">
+                                            {{item.recording ? '录制中' : '未录制'}}
+                                        </text>
+                                    </view>
+                                    <button class="camera-btn live-btn">查看直播</button>
+                                </view>
+                            </view>
+                            <!-- 主开关 -->
+                            <view class="device-main-switch" wx:if="{{item.type !== 'sensor'}}">
+                                <view class="main-switch {{item.status === 'on' ? 'on' : 'off'}}" bindtap="toggleDevice" data-device-id="{{item.id}}">
+                                    <view class="switch-handle {{item.status === 'on' ? 'on' : ''}}"></view>
+                                </view>
+                                <text class="switch-label">
+                                    {{item.status === 'on' ? '开启' : '关闭'}}
+                                </text>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </block>
+        </view>
+    </view>
+    <!-- 添加设备按钮 -->
+    <view class="add-device-fab" bindtap="addDevice">
+        <text class="fab-icon">+</text>
+    </view>
+</view>

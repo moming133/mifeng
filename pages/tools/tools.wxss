@@ -1,0 +1,261 @@
+/* pages/tools/tools.wxss */
+.container {
+  padding: 20rpx;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* 搜索栏 */
+.search-bar {
+  margin-bottom: 30rpx;
+}
+
+.search-input-wrapper {
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 25rpx;
+  padding: 0 30rpx;
+  height: 80rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.search-icon {
+  font-size: 28rpx;
+  color: #999;
+  margin-right: 20rpx;
+}
+
+.search-input {
+  flex: 1;
+  height: 100%;
+  font-size: 28rpx;
+  color: #333;
+}
+
+/* 分类标签 */
+.category-tabs {
+  display: flex;
+  gap: 20rpx;
+  margin-bottom: 30rpx;
+  overflow-x: auto;
+  padding-bottom: 10rpx;
+}
+
+.category-tab {
+  flex-shrink: 0;
+  padding: 16rpx 32rpx;
+  background: white;
+  border-radius: 25rpx;
+  font-size: 26rpx;
+  color: #666;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.category-tab.active {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
+
+.category-tab:active {
+  transform: scale(0.95);
+}
+
+/* 工具容器 */
+.tools-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 40rpx;
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 120rpx;
+  color: #ccc;
+  margin-bottom: 30rpx;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999;
+}
+
+/* 工具网格 */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20rpx;
+}
+
+/* 工具卡片 */
+.tool-card {
+  background: white;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: all 0.3s ease;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.tool-card:active {
+  transform: scale(0.98);
+}
+
+.tool-card.disabled {
+  opacity: 0.6;
+}
+
+/* 工具图标 */
+.tool-icon-wrapper {
+  position: relative;
+  width: 80rpx;
+  height: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.tool-icon {
+  font-size: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 16rpx;
+  color: white;
+}
+
+.tool-disabled-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tool-disabled-overlay::after {
+  content: '🔒';
+  font-size: 32rpx;
+}
+
+/* 工具信息 */
+.tool-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.tool-name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.tool-desc {
+  font-size: 24rpx;
+  color: #999;
+  line-height: 1.4;
+}
+
+/* 工具开关 */
+.tool-switch {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.switch {
+  width: 60rpx;
+  height: 32rpx;
+  background: #e8e8e8;
+  border-radius: 16rpx;
+  position: relative;
+  transition: background 0.3s ease;
+}
+
+.switch.on {
+  background: #07c160;
+}
+
+.switch-handle {
+  position: absolute;
+  top: 4rpx;
+  left: 4rpx;
+  width: 24rpx;
+  height: 24rpx;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.2);
+}
+
+.switch-handle.on {
+  transform: translateX(28rpx);
+}
+
+/* 底部提示 */
+.bottom-tip {
+  margin-top: 40rpx;
+  padding: 20rpx;
+  background: rgba(255, 193, 7, 0.1);
+  border-radius: 12rpx;
+  border-left: 4rpx solid #ffc107;
+}
+
+.tip-text {
+  font-size: 24rpx;
+  color: #856404;
+  line-height: 1.5;
+}
+
+/* 响应式设计 */
+@media (max-width: 750rpx) {
+  .tools-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tool-card {
+  animation: fadeIn 0.5s ease-out;
+  animation-fill-mode: both;
+}
+
+.tool-card:nth-child(1) { animation-delay: 0.1s; }
+.tool-card:nth-child(2) { animation-delay: 0.2s; }
+.tool-card:nth-child(3) { animation-delay: 0.3s; }
+.tool-card:nth-child(4) { animation-delay: 0.4s; }
+.tool-card:nth-child(5) { animation-delay: 0.5s; }
+.tool-card:nth-child(6) { animation-delay: 0.6s; }
+.tool-card:nth-child(7) { animation-delay: 0.7s; }
+.tool-card:nth-child(8) { animation-delay: 0.8s; }
+.tool-card:nth-child(9) { animation-delay: 0.9s; }

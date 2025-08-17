@@ -1,0 +1,47 @@
+<!-- pages/tools/tools.wxml -->
+<view class="container">
+    <!-- 搜索栏 -->
+    <view class="search-bar">
+        <view class="search-input-wrapper">
+            <text class="search-icon">🔍</text>
+            <input class="search-input" placeholder="搜索工具..." value="{{searchQuery}}" bindinput="onSearch" />
+        </view>
+    </view>
+    <!-- 分类标签 -->
+    <view class="category-tabs">
+        <view wx:for="{{categories}}" wx:key="id" class="category-tab {{currentCategory === item.id ? 'active' : ''}}" bindtap="switchCategory" data-category="{{item.id}}">
+            {{item.name}}
+        </view>
+    </view>
+    <!-- 工具列表 -->
+    <view class="tools-container">
+        <view wx:if="{{filteredTools.length === 0}}" class="empty-state">
+            <text class="empty-icon">🔍</text>
+            <text class="empty-text">暂无相关工具</text>
+        </view>
+        <view wx:else class="tools-grid">
+            <view wx:for="{{filteredTools}}" wx:key="id" class="tool-card {{item.enabled ? '' : 'disabled'}}" bindtap="openTool" data-tool-id="{{item.id}}">
+                <!-- 工具图标 -->
+                <view class="tool-icon-wrapper">
+                    <text class="tool-icon">{{item.icon}}</text>
+                    <view wx:if="{{!item.enabled}}" class="tool-disabled-overlay"></view>
+                </view>
+                <!-- 工具信息 -->
+                <view class="tool-info">
+                    <text class="tool-name">{{item.name}}</text>
+                    <text class="tool-desc">{{item.desc}}</text>
+                </view>
+                <!-- 开关按钮 -->
+                <view class="tool-switch" bindtap="toggleTool" data-tool-id="{{item.id}}">
+                    <view class="switch {{item.enabled ? 'on' : 'off'}}">
+                        <view class="switch-handle {{item.enabled ? 'on' : ''}}"></view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <!-- 底部提示 -->
+    <view class="bottom-tip" wx:if="{{hasDisabledTools}}">
+        <text class="tip-text">🔧 部分工具需要额外权限或配置才能使用</text>
+    </view>
+</view>

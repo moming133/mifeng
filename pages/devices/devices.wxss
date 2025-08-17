@@ -1,0 +1,572 @@
+/* pages/devices/devices.wxss */
+
+/* 蓝牙设备发现状态 */
+.discovery-status {
+    padding: 20rpx;
+    background-color: #f5f5f5;
+    border-radius: 12rpx;
+    margin: 20rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.discovery-icon {
+    font-size: 48rpx;
+    margin-bottom: 10rpx;
+}
+
+.discovery-text {
+    font-size: 28rpx;
+    color: #666;
+    margin-bottom: 10rpx;
+}
+
+.discovery-count {
+    font-size: 24rpx;
+    color: #999;
+}
+
+/* 蓝牙设备列表 */
+.ble-devices-list {
+    margin: 20rpx;
+}
+
+.ble-device-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20rpx;
+    background-color: #fff;
+    border-radius: 12rpx;
+    margin-bottom: 20rpx;
+    box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.05);
+}
+
+.ble-device-info {
+    flex: 1;
+}
+
+.ble-device-name {
+    font-size: 32rpx;
+    color: #333;
+    display: block;
+    margin-bottom: 8rpx;
+}
+
+.ble-device-id {
+    font-size: 24rpx;
+    color: #999;
+    display: block;
+}
+
+.connect-btn {
+    padding: 0 30rpx;
+    height: 60rpx;
+    line-height: 60rpx;
+    border-radius: 30rpx;
+    font-size: 28rpx;
+    background-color: #07c160;
+    color: #fff;
+    border: none;
+}
+
+.connect-btn.connected {
+    background-color: #1890ff;
+}
+.container {
+  padding: 20rpx;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* 搜索栏 */
+.search-bar {
+  margin-bottom: 30rpx;
+}
+
+.search-input-wrapper {
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 25rpx;
+  padding: 0 30rpx;
+  height: 80rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.search-icon {
+  font-size: 28rpx;
+  color: #999;
+  margin-right: 20rpx;
+}
+
+.search-input {
+  flex: 1;
+  height: 100%;
+  font-size: 28rpx;
+  color: #333;
+}
+
+/* 分类标签 */
+.category-tabs {
+  display: flex;
+  gap: 20rpx;
+  margin-bottom: 30rpx;
+  overflow-x: auto;
+  padding-bottom: 10rpx;
+}
+
+.category-tab {
+  flex-shrink: 0;
+  padding: 16rpx 32rpx;
+  background: white;
+  border-radius: 25rpx;
+  font-size: 26rpx;
+  color: #666;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.category-tab.active {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
+
+.category-tab:active {
+  transform: scale(0.95);
+}
+
+/* 设备容器 */
+.devices-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30rpx;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 40rpx;
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 120rpx;
+  color: #ccc;
+  margin-bottom: 30rpx;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999;
+  margin-bottom: 40rpx;
+}
+
+.add-device-btn {
+  background: linear-gradient(135deg, #07c160, #05a952);
+  color: white;
+  border: none;
+  border-radius: 25rpx;
+  padding: 20rpx 40rpx;
+  font-size: 28rpx;
+}
+
+/* 设备列表 */
+.devices-list {
+  display: flex;
+  flex-direction: column;
+  gap: 30rpx;
+}
+
+/* 房间分组 */
+.room-section {
+  background: white;
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.room-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border-bottom: 1rpx solid #e8e8e8;
+}
+
+.room-name {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.room-count {
+  font-size: 24rpx;
+  color: #666;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+}
+
+/* 房间内设备 */
+.room-devices {
+  padding: 20rpx;
+}
+
+/* 设备卡片 */
+.device-card {
+  background: white;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  border: 1rpx solid #f0f0f0;
+  transition: all 0.3s ease;
+}
+
+.device-card:last-child {
+  margin-bottom: 0;
+}
+
+.device-card:active {
+  transform: scale(0.98);
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+}
+
+/* 设备头部 */
+.device-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.device-icon-wrapper {
+  position: relative;
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.device-icon {
+  font-size: 36rpx;
+}
+
+.device-status-indicator {
+  position: absolute;
+  bottom: -4rpx;
+  right: -4rpx;
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+  border: 2rpx solid white;
+}
+
+.device-actions {
+  display: flex;
+  gap: 10rpx;
+}
+
+.action-btn {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.action-btn:active {
+  transform: scale(0.9);
+}
+
+.connect-btn {
+  background: #007aff;
+}
+
+.disconnect-btn {
+  background: #ff9500;
+}
+
+.delete-btn {
+  background: #ff4444;
+}
+
+.btn-icon {
+  font-size: 20rpx;
+  color: white;
+}
+
+/* 设备信息 */
+.device-info {
+  margin-bottom: 20rpx;
+}
+
+.device-name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.device-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-text {
+  font-size: 24rpx;
+}
+
+.update-time {
+  font-size: 22rpx;
+  color: #999;
+}
+
+/* 设备控制 */
+.device-controls {
+  margin-bottom: 20rpx;
+}
+
+.control-group {
+  margin-bottom: 20rpx;
+}
+
+.control-label {
+  font-size: 24rpx;
+  color: #666;
+  margin-bottom: 12rpx;
+  display: block;
+}
+
+/* 滑块样式 */
+slider {
+  width: 100%;
+  height: 6rpx;
+}
+
+slider::-webkit-slider-thumb {
+  width: 24rpx;
+  height: 24rpx;
+  border-radius: 50%;
+  background: #07c160;
+  border: 2rpx solid white;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.2);
+}
+
+.brightness-value,
+.volume-value {
+  font-size: 24rpx;
+  color: #666;
+  text-align: right;
+  margin-top: 8rpx;
+}
+
+/* 温度控制 */
+.temperature-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8f9fa;
+  border-radius: 25rpx;
+  padding: 20rpx;
+}
+
+.temp-btn {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1rpx solid #e8e8e8;
+  transition: all 0.3s ease;
+}
+
+.temp-btn:active {
+  transform: scale(0.9);
+}
+
+.temp-btn.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.temp-icon {
+  font-size: 24rpx;
+}
+
+.temperature-value {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+/* 传感器信息 */
+.sensor-info {
+  display: flex;
+  justify-content: space-around;
+  background: #f8f9fa;
+  border-radius: 16rpx;
+  padding: 20rpx;
+}
+
+.sensor-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sensor-label {
+  font-size: 22rpx;
+  color: #666;
+  margin-bottom: 8rpx;
+}
+
+.sensor-value {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+/* 摄像头控制 */
+.camera-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.camera-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-label {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.status-value {
+  font-size: 24rpx;
+  font-weight: 600;
+}
+
+.status-value.recording {
+  color: #ff4444;
+}
+
+.camera-btn {
+  background: linear-gradient(135deg, #007aff, #0051d5);
+  color: white;
+  border: none;
+  border-radius: 25rpx;
+  padding: 16rpx 32rpx;
+  font-size: 26rpx;
+  text-align: center;
+}
+
+.camera-btn:active {
+  transform: scale(0.95);
+}
+
+/* 主开关 */
+.device-main-switch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 20rpx;
+  border-top: 1rpx solid #f0f0f0;
+}
+
+.main-switch {
+  width: 100rpx;
+  height: 56rpx;
+  background: #e8e8e8;
+  border-radius: 28rpx;
+  position: relative;
+  transition: background 0.3s ease;
+}
+
+.main-switch.on {
+  background: #07c160;
+}
+
+.switch-handle {
+  position: absolute;
+  top: 6rpx;
+  left: 6rpx;
+  width: 44rpx;
+  height: 44rpx;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.2);
+}
+
+.switch-handle.on {
+  transform: translateX(44rpx);
+}
+
+.switch-label {
+  font-size: 26rpx;
+  color: #666;
+}
+
+/* 添加设备按钮 */
+.add-device-fab {
+  position: fixed;
+  bottom: 100rpx;
+  right: 40rpx;
+  width: 100rpx;
+  height: 100rpx;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 20rpx rgba(102, 126, 234, 0.4);
+  transition: all 0.3s ease;
+}
+
+.add-device-fab:active {
+  transform: scale(0.9);
+}
+
+.fab-icon {
+  font-size: 40rpx;
+  color: white;
+  font-weight: bold;
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.device-card {
+  animation: fadeIn 0.5s ease-out;
+  animation-fill-mode: both;
+}
+
+.device-card:nth-child(1) { animation-delay: 0.1s; }
+.device-card:nth-child(2) { animation-delay: 0.2s; }
+.device-card:nth-child(3) { animation-delay: 0.3s; }
+.device-card:nth-child(4) { animation-delay: 0.4s; }
+.device-card:nth-child(5) { animation-delay: 0.5s; }
